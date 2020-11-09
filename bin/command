@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+export GITHUB_TOKEN=${1:-}
+export DANGER_SYSTEMS_LANGUAGE=${2:-}
+export DANGER_SYSTEMS_LANGUAGE_VERSION=${3:-}
+export GH_NPM_REGISTRY_TOKEN=${4:-}
+
+if [[ -z "$DANGER_SYSTEMS_LANGUAGE" ]]; then
+  # Ensure a language is specified
+  echo "You must specify a language for danger to use"
+  exit 1
+elif [ "$DANGER_SYSTEMS_LANGUAGE" == "js" ]; then
+  # shellcheck source=setup_js
+  . "$BASEDIR/bin/setup_js"
+  js_build
+  js_run
+elif [ "$DANGER_SYSTEMS_LANGUAGE" == "ruby" ]; then
+  # shellcheck source=setup_ruby
+  . "$BASEDIR/bin/setup_ruby"
+  ruby_build
+  ruby_run
+fi;

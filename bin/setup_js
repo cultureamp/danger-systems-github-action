@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+
+js_build () {
+  DANGER_SYSTEMS_LANGUAGE_VERSION=${DANGER_SYSTEMS_LANGUAGE_VERSION:-"12"}
+
+  BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+  echo "--- :docker: Building danger-js image"
+  docker build \
+    -t cultureamp/danger-js \
+    --build-arg NODE_IMAGE_VERSION="${DANGER_SYSTEMS_LANGUAGE_VERSION}" \
+    -f "$BASEDIR/Dockerfile.node" "$GITHUB_WORKSPACE"
+}
+
+js_run () {
+  # Installation vars
+  GH_NPM_REGISTRY_TOKEN=${GH_NPM_REGISTRY_TOKEN:-}
+  # Run vars
+  GITHUB_TOKEN=${GITHUB_TOKEN:-}
+  GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}
+
+  BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+  echo "--- :docker: Running danger-js"
+  docker run \
+    -v "$GITHUB_WORKSPACE":/home/app \
+    -v "$BASEDIR/bin":/home/build \
+    -v "$GITHUB_EVENT_PATH":/home/event.json \
+    -e GH_NPM_REGISTRY_TOKEN="$GH_NPM_REGISTRY_TOKEN" \
+    -e GITHUB_TOKEN="$GITHUB_TOKEN" \
+    -e GITHUB_WORKFLOW="$GITHUB_WORKFLOW" \
+    -e GITHUB_EVENT_PATH=/home/event.json \
+    cultureamp/danger-js \
+    /bin/sh /home/build/docker_js_run
+}

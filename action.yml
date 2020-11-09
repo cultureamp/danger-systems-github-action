@@ -1,0 +1,21 @@
+name: Danger Systems
+description: Run danger as part of your pipeline
+inputs:
+  repo-token:
+    description: Token to use to authorize danger to operate on your PR. Typically the GITHUB_TOKEN secret.
+    required: true
+  language:
+    description: Language to run danger against (ruby, js)
+    required: true
+    default: js
+  language-version:
+    description: Language version
+    required: false
+  gh-npm-registry-token:
+    description: Token to authorize access to the GitHub npm package registry.
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/bin/command ${{ inputs.repo-token }} ${{ inputs.language }} ${{ inputs.language-version }} ${{ inputs.gh-npm-registry-token }}
+      shell: bash

@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+GH_NPM_REGISTRY_TOKEN=${GH_NPM_REGISTRY_TOKEN:-}
+
+# Setting the authToken, installing packages, and removing the authToken in a
+# single RUN step prevents the authToken from being stored in the docker images.
+if [[ -n "${GH_NPM_REGISTRY_TOKEN:-}" ]]; then \
+  npm config set "//npm.pkg.github.com/:_authToken" "${GH_NPM_REGISTRY_TOKEN}" \
+    && yarn --no-progress --frozen-lockfile \
+    && npm config delete "//npm.pkg.github.com/:_authToken"; fi
+
+if [[ -z "${GH_NPM_REGISTRY_TOKEN:-}" ]]; then \
+  yarn --no-progress --frozen-lockfile; fi
+
+# Install danger if it not in the project deps
+yarn run danger -V &>/dev/null || yarn add --dev danger
+
+# Run danger
+yarn run danger ci
