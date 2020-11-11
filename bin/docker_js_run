@@ -2,6 +2,10 @@
 set -euo pipefail
 
 GH_NPM_REGISTRY_TOKEN=${GH_NPM_REGISTRY_TOKEN:-}
+GITHUB_EVENT_PATH=${GITHUB_EVENT_PATH:-}
+
+echo "$GITHUB_EVENT_PATH"
+cat /home/event.json
 
 # Setting the authToken, installing packages, and removing the authToken in a
 # single RUN step prevents the authToken from being stored in the docker images.

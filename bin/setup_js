@@ -6,6 +6,9 @@ js_build () {
 
   BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
+  echo "Event path: $GITHUB_EVENT_PATH"
+  cat "$GITHUB_EVENT_PATH"
+
   echo "--- :docker: Building danger-js image"
   docker build \
     -t cultureamp/danger-js \
