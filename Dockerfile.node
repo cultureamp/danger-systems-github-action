@@ -10,7 +10,7 @@ RUN mkdir /home/app
 WORKDIR /home/app
 
 # Set known cache directory for yarn
-RUN yarn config set cache-folder /home/yarn-cache
+RUN mkdir -p /home/yarn-cache && yarn config set cache-folder /home/yarn-cache
 
 ENV GH_NPM_REGISTRY_TOKEN ""
 
