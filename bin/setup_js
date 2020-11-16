@@ -14,8 +14,6 @@ js_build () {
 }
 
 js_run () {
-  # Installation vars
-  GH_NPM_REGISTRY_TOKEN=${GH_NPM_REGISTRY_TOKEN:-}
   # Run vars
   GITHUB_TOKEN=${GITHUB_TOKEN:-}
   GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}
@@ -28,7 +26,6 @@ js_run () {
     -v "$BASEDIR/bin":/home/build \
     -v "$GITHUB_EVENT_PATH":/home/event.json \
     -v ~/yarn-cache:/home/yarn-cache \
-    -e GH_NPM_REGISTRY_TOKEN="$GH_NPM_REGISTRY_TOKEN" \
     -e GITHUB_TOKEN="$GITHUB_TOKEN" \
     -e GITHUB_WORKFLOW="$GITHUB_WORKFLOW" \
     -e GITHUB_EVENT_PATH=/home/event.json \

@@ -19,8 +19,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qq && \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
-ENV GH_NPM_REGISTRY_TOKEN ""
-
 # ENV vars that danger cares about
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables
 ENV GITHUB_TOKEN ""
