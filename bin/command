@@ -3,6 +3,9 @@ set -euo pipefail
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
+# Enable Buildkit
+export DOCKER_BUILDKIT=1
+
 export GITHUB_TOKEN=${1:-}
 export DANGER_SYSTEMS_LANGUAGE=${2:-}
 export DANGER_SYSTEMS_LANGUAGE_VERSION=${3:-}
