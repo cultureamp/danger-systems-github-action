@@ -9,6 +9,9 @@ RUN echo "Building base image: $BASE_IMAGE"
 RUN mkdir /home/app
 WORKDIR /home/app
 
+# Set known cache directory for yarn
+RUN yarn config set cache-folder /home/yarn-cache
+
 ENV GH_NPM_REGISTRY_TOKEN ""
 
 # ENV vars that danger cares about and base GitHub ENV vars
