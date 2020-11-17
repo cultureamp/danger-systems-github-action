@@ -15,6 +15,9 @@ ruby_build () {
 
 ruby_run () {
   # Run vars
+  GITHUB_ACTION=${GITHUB_ACTION:-}
+  GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME:-}
+  GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-}
   GITHUB_TOKEN=${GITHUB_TOKEN:-}
   GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}
 
@@ -25,9 +28,12 @@ ruby_run () {
     -v "$GITHUB_WORKSPACE":/home/app \
     -v "$BASEDIR/bin":/home/build \
     -v "$GITHUB_EVENT_PATH":/home/event.json \
+    -e GITHUB_ACTION="$GITHUB_ACTION" \
+    -e GITHUB_EVENT_NAME="$GITHUB_EVENT_NAME" \
+    -e GITHUB_EVENT_PATH=/home/event.json \
+    -e GITHUB_REPOSITORY="$GITHUB_REPOSITORY" \
     -e GITHUB_TOKEN="$GITHUB_TOKEN" \
     -e GITHUB_WORKFLOW="$GITHUB_WORKFLOW" \
-    -e GITHUB_EVENT_PATH=/home/event.json \
     cultureamp/danger-ruby \
     /bin/bash /home/build/docker_ruby_run
 }

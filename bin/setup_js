@@ -26,9 +26,9 @@ js_run () {
     -v "$BASEDIR/bin":/home/build \
     -v "$GITHUB_EVENT_PATH":/home/event.json \
     -v ~/yarn-cache:/home/yarn-cache \
+    -e GITHUB_EVENT_PATH=/home/event.json \
     -e GITHUB_TOKEN="$GITHUB_TOKEN" \
     -e GITHUB_WORKFLOW="$GITHUB_WORKFLOW" \
-    -e GITHUB_EVENT_PATH=/home/event.json \
     cultureamp/danger-js \
     /bin/sh /home/build/docker_js_run
 }

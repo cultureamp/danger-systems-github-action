@@ -14,5 +14,6 @@ RUN mkdir -p /home/yarn-cache && yarn config set cache-folder /home/yarn-cache
 
 # ENV vars that danger cares about
 # https://docs.github.com/en/free-pro-team@latest/actions/reference/environment-variables
+ENV GITHUB_EVENT_PATH ""
 ENV GITHUB_TOKEN ""
 ENV GITHUB_WORKFLOW ""
