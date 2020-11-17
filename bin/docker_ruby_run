@@ -1,13 +1,25 @@
 #!/bin/bash
 set -euo pipefail
 
-BUNDLED_WITH="$(grep 'BUNDLED WITH' -A 1 Gemfile.lock | grep -v BUNDLED | tr -d ' ')"
+BUNDLED_WITH=2.1.4
 
-# Install :danger group only with through bundle-only
-# https://github.com/MOZGIII/bundle-only
-gem install bundler --version "$BUNDLED_WITH" \
-  && gem install bundle-only \
-  && bundle-only danger
+cd ./.danger
+
+if [ -f "Gemfile.lock" ]; then
+  BUNDLED_WITH="$(grep 'BUNDLED WITH' -A 1 Gemfile.lock | grep -v BUNDLED | tr -d ' ')"
+fi
+
+# Install bundler
+gem install bundler --version "$BUNDLED_WITH"
+
+if [ -f "Gemfile" ]; then
+  bundle install --jobs=4 --retry=3
+fi
+
+# Install danger if it not in the project deps
+bundle info danger >/dev/null 2>&1 || {
+  gem install danger
+}
 
 # Run danger
 danger

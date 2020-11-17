@@ -4,8 +4,6 @@ FROM ${BASE_IMAGE}
 
 ENV LANG=C.UTF-8
 
-RUN echo "Building base image: $BASE_IMAGE"
-
 RUN mkdir /home/app
 WORKDIR /home/app
 
