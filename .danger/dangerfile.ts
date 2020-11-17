@@ -1,4 +1,4 @@
 import { message, warn } from "danger"
 
-message("Message from danger-js")
-warn("Message from danger-js")
+message("Message from dangerfile.ts")
+warn("Message from dangerfile.ts")

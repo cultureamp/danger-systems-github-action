@@ -1,2 +1,2 @@
-message("Message from danger-ruby")
-warn("Message from danger-ruby")
+message("Message from Dangerfile.rb")
+warn("Message from Dangerfile.rb")
