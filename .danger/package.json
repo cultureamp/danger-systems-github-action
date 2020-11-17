@@ -1,0 +1,7 @@
+{
+  "name": "programs-service-danger",
+  "devDependencies": {
+    "danger": "^10.5.1",
+    "typescript": "^4.0.5"
+  }
+}

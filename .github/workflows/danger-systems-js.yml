@@ -1,0 +1,26 @@
+name: Danger Systems (JS)
+on:
+  pull_request:
+    types: [assigned, unassigned, labeled, unlabeled, opened, edited, reopened, synchronize]
+
+jobs:
+  danger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache yarn dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/yarn-cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('.danger/yarn.lock', '.danger/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Danger
+        uses: cultureamp/danger-systems-github-action@main
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          language: js
+          language-version: 14
