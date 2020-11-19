@@ -19,8 +19,9 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Danger
-        uses: cultureamp/danger-systems-github-action@main
+        uses: cultureamp/danger-systems-github-action@custom-dangerfile-path
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           language: js
           language-version: 14
+          dangerfile-path: ./dangerfile.custom.ts

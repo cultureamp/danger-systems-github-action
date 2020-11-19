@@ -15,6 +15,7 @@ js_build () {
 
 js_run () {
   # Run vars
+  DANGERFILE_CUSTOM_PATH=${DANGERFILE_CUSTOM_PATH:-}
   GITHUB_TOKEN=${GITHUB_TOKEN:-}
   GITHUB_WORKFLOW=${GITHUB_WORKFLOW:-}
 
@@ -26,6 +27,7 @@ js_run () {
     -v "$BASEDIR/bin":/home/build \
     -v "$GITHUB_EVENT_PATH":/home/event.json \
     -v ~/yarn-cache:/home/yarn-cache \
+    -e DANGERFILE_CUSTOM_PATH="$DANGERFILE_CUSTOM_PATH" \
     -e GITHUB_EVENT_PATH=/home/event.json \
     -e GITHUB_TOKEN="$GITHUB_TOKEN" \
     -e GITHUB_WORKFLOW="$GITHUB_WORKFLOW" \

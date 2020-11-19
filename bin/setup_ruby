@@ -15,6 +15,7 @@ ruby_build () {
 
 ruby_run () {
   # Run vars
+  DANGERFILE_CUSTOM_PATH=${DANGERFILE_CUSTOM_PATH:-}
   GITHUB_ACTION=${GITHUB_ACTION:-}
   GITHUB_EVENT_NAME=${GITHUB_EVENT_NAME:-}
   GITHUB_REPOSITORY=${GITHUB_REPOSITORY:-}
@@ -28,6 +29,7 @@ ruby_run () {
     -v "$GITHUB_WORKSPACE":/home/app \
     -v "$BASEDIR/bin":/home/build \
     -v "$GITHUB_EVENT_PATH":/home/event.json \
+    -e DANGERFILE_CUSTOM_PATH="$DANGERFILE_CUSTOM_PATH" \
     -e GITHUB_ACTION="$GITHUB_ACTION" \
     -e GITHUB_EVENT_NAME="$GITHUB_EVENT_NAME" \
     -e GITHUB_EVENT_PATH=/home/event.json \
