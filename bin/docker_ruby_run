@@ -26,6 +26,6 @@ bundle info danger >/dev/null 2>&1 || {
 if [[ -z "$DANGERFILE_CUSTOM_PATH" ]]; then
   danger
 else
-  echo "Using custom path: $DANGERFILE_CUSTOM_PATH"
+  echo "::debug::Using custom dangerfile path: $DANGERFILE_CUSTOM_PATH"
   danger --dangerfile="$DANGERFILE_CUSTOM_PATH"
 fi;
