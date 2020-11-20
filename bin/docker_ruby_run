@@ -2,6 +2,7 @@
 set -euo pipefail
 
 BUNDLED_WITH=2.1.4
+DANGERFILE_CUSTOM_PATH=${DANGERFILE_CUSTOM_PATH:-}
 
 cd ./.danger
 
@@ -22,4 +23,9 @@ bundle info danger >/dev/null 2>&1 || {
 }
 
 # Run danger
-danger
+if [[ -z "$DANGERFILE_CUSTOM_PATH" ]]; then
+  danger
+else
+  echo "::debug::Using custom dangerfile path: $DANGERFILE_CUSTOM_PATH"
+  danger --dangerfile="$DANGERFILE_CUSTOM_PATH"
+fi;

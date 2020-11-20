@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+DANGERFILE_CUSTOM_PATH=${DANGERFILE_CUSTOM_PATH:-}
+
 cd ./.danger
 
 yarn --no-progress --frozen-lockfile
@@ -11,4 +13,9 @@ yarn run danger -V &>/dev/null || {
 }
 
 # Run danger
-yarn run danger ci
+if [[ -z "$DANGERFILE_CUSTOM_PATH" ]]; then
+  yarn run danger ci
+else
+  echo "::debug::Using custom dangerfile path: $DANGERFILE_CUSTOM_PATH"
+  yarn run danger ci --dangerfile "$DANGERFILE_CUSTOM_PATH"
+fi;

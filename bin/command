@@ -9,6 +9,7 @@ export DOCKER_BUILDKIT=1
 export GITHUB_TOKEN=${1:-}
 export DANGER_SYSTEMS_LANGUAGE=${2:-}
 export DANGER_SYSTEMS_LANGUAGE_VERSION=${3:-}
+export DANGERFILE_CUSTOM_PATH=${4:-}
 
 if [[ -z "$DANGER_SYSTEMS_LANGUAGE" ]]; then
   # Ensure a language is specified

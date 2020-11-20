@@ -11,8 +11,11 @@ inputs:
   language-version:
     description: Language version
     required: false
+  dangerfile-path:
+    description: Override default dangerfile path
+    required: false
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/bin/command ${{ inputs.repo-token }} ${{ inputs.language }} ${{ inputs.language-version }}
+    - run: ${{ github.action_path }}/bin/command ${{ inputs.repo-token }} ${{ inputs.language }} ${{ inputs.language-version }} ${{ inputs.dangerfile-path }}
       shell: bash
